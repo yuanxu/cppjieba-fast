@@ -2,8 +2,8 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 import sys
 import setuptools
-
-__version__ = '0.0.1'
+import os
+__version__ = '0.0.2'
 
 
 class get_pybind_include(object):
