@@ -99,6 +99,7 @@ setup(
     url='https://github.com/fantasy/cppjieba-py',
     description='A python extension for cppjieba',
     long_description='',
+    packages=['cppjiebapy'],
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},
