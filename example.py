@@ -1,4 +1,5 @@
 from cppjiebapy import Tokenizer ,cut,cut_for_search,lcut,lcut_for_search
+import cppjiebapy.posseg as pseg
 
 def main():
 
@@ -19,6 +20,9 @@ def main():
 
     print(lcut_for_search("我来到北京清华大学"))
     print(list(cut_for_search("我来到北京清华大学")))
+
+    print(pseg.lcut("我来到北京清华大学"))
+    print(list(pseg.cut("我来到北京清华大学")))
 
 if __name__ == '__main__':
     main()
