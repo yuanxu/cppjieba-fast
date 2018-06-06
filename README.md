@@ -2,14 +2,24 @@
 
 cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装。
 
-## 性能
+## 安装  
 
-测试[方案](https://yanyiwu.com/work/2015/06/14/jieba-series-performance-test.html)：先按行读取文本围城到一个数组里，然后循环对围城每行文字作为一个句子进行分词。因为只对围城这本书分词一遍太快了，容易误差。 所以循环对围城这本书分词50次。基本上每次分词耗时都很稳定。 分词算法都是采用【精确模式】。
+* pypi  
 
-| 方案        | 速度             |
-| ------------- |:-------------:|
-| cppjieba-py      | 6.218346  |
-| jieba      | 1:24.703040    |
+	```pip install cppjieba-py```  
+
+* 从发行包安装  
+	see [releases](https://github.com/bung87/cppjieba-py/releases)  
+
+	```pip install https://github.com/bung87/cppjieba-py/files/<xxxxxxx>/cppjieba_py-<x.x.x>.tar.gz```  
+
+* 从源代码安装
+
+	```
+	$ git clone --recursive https://github.com/bung87/cppjieba-py
+	$ python setup.py build 
+	$ python setup.py install 
+	```
 
 
 ## 使用
@@ -34,17 +44,11 @@ print(", ".join(seg_list))
     
 ```
 
-## 安装  
+## 性能
 
-* 从发行包安装  
-	see [releases](https://github.com/bung87/cppjieba-py/releases)  
+测试[方案](https://yanyiwu.com/work/2015/06/14/jieba-series-performance-test.html)：先按行读取文本围城到一个数组里，然后循环对围城每行文字作为一个句子进行分词。因为只对围城这本书分词一遍太快了，容易误差。 所以循环对围城这本书分词50次。基本上每次分词耗时都很稳定。 分词算法都是采用【精确模式】。
 
-	```pip install https://github.com/bung87/cppjieba-py/files/<xxxxxxx>/cppjieba_py-<x.x.x>.tar.gz```  
-
-* 从源代码安装
-
-	```
-	$ git clone --recursive https://github.com/fantasy/cppjieba-py
-	$ python setup.py build 
-	$ python setup.py install 
-	```
+| 方案        | 速度             |
+| ------------- |:-------------:|
+| cppjieba-py      | 6.218346  |
+| jieba      | 1:24.703040    |
