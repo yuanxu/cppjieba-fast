@@ -97,10 +97,10 @@ setup(
     author='bung87,yeping zheng',
     url='https://github.com/bung87/cppjieba-py/',
     description='A python extension for cppjieba',
-    long_description='',
+    long_description= open("README.md").read(),
     ext_modules=ext_modules,
     packages=['cppjieba_py'],
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},
-    # zip_safe=False,
+    zip_safe=False,
 )

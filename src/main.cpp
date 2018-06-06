@@ -57,6 +57,13 @@ struct Tokenizer
         return words;
     };
 
+    vector<string> cut_all(const string &sentence)
+    {
+        vector<string> words;
+        jieba.CutAll(sentence, words);
+        return words;
+    };
+
     vector<string> lcut_all(const string &sentence)
     {
         vector<string> words;
@@ -181,6 +188,13 @@ WordVector cut_for_search_internal(const string &sentence, bool HMM = true)
     return dt->cut_for_search_internal(sentence, HMM);
 };
 
+vector<string> cut_all(const string &sentence)
+{
+    init_check();
+    return dt->cut_all(sentence);
+};
+
+
 vector<string> lcut_for_search(const string &sentence, bool HMM = true)
 {
     init_check();
@@ -195,6 +209,7 @@ PYBIND11_MODULE(libcppjieba, m)
 
     m.def("cut_internal", &Jieba::cut_internal, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true);
     m.def("lcut", &Jieba::lcut, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true);
+    m.def("cut_all", &Jieba::cut_all);
     m.def("lcut_all", &Jieba::lcut_all);
     m.def("lcut_for_search", &Jieba::lcut_for_search, py::arg("sentence"), py::arg("HMM") = true);
     m.def("cut_for_search_internal", &Jieba::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true);
@@ -211,6 +226,7 @@ PYBIND11_MODULE(libcppjieba, m)
         .def("cut_internal", &Tokenizer::cut_internal, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true)
         .def("lcut", &Tokenizer::lcut, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true)
         .def("lcut_all", &Tokenizer::lcut_all)
+        .def("cut_all", &Tokenizer::cut_all)
         .def("lcut_for_search", &Tokenizer::lcut_for_search, py::arg("sentence"), py::arg("HMM") = true)
         .def("cut_for_search_internal", &Tokenizer::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true)
         .def("tag_internal", &Tokenizer::tag_internal, py::arg("sentence"));

@@ -3,12 +3,17 @@ from libcppjieba import cut_for_search_internal as _cut_for_search_internal,\
     cut_internal as _cut_internal
 from libcppjieba import Tokenizer
 from libcppjieba import lcut,lcut_for_search,initialize
+from libcppjieba import cut_all as _cut_all,lcut_all
 
 def _iter_wraps_doc(origin):
     return origin.__doc__.replace(origin.__name__,"Iterator wraps %s" % origin.__name__,1)  
     
 def cut(*args,**kvargs):
     it = _cut_internal(*args,**kvargs)
+    return iter(it)
+
+def cut_all(*args,**kvargs):
+    it = _cut_all(*args,**kvargs)
     return iter(it)
 
 cut.__doc__ = _iter_wraps_doc(_cut_internal)
