@@ -3,8 +3,9 @@ from setuptools.command.build_ext import build_ext
 import sys
 import setuptools
 import os
-__version__ = '0.0.2'
 
+
+from cppjieba_py import __version__
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -94,9 +95,8 @@ class BuildExt(build_ext):
 setup(
     name='cppjieba_py',
     version=__version__,
-    author='yeping zheng',
-    author_email='fantasy614@gmail.com',
-    url='https://github.com/fantasy/cppjieba-py',
+    author='bung87,yeping zheng',
+    url='https://github.com/bung87/cppjieba-py/',
     description='A python extension for cppjieba',
     long_description='',
     packages=['cppjieba_py'],

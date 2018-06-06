@@ -20,3 +20,5 @@ def c_cut_for_search(ins,*args,**kvargs):
 
 setattr(Tokenizer,"cut",c_cut)
 setattr(Tokenizer,"cut_for_search",c_cut_for_search)
+
+__version__ = '0.0.3'
