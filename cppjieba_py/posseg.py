@@ -2,8 +2,7 @@ from libcppjieba import tag_internal
 
 def cut(sentence):
        it = tag_internal(sentence)
-       for word,tag in it:
-           yield (word,tag)
+       return iter(it)
 
 def lcut(sentence):
-    return list(tag_internal(sentence))
+    return tag_internal(sentence)
