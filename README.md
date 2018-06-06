@@ -8,8 +8,8 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 
 | 方案        | 速度             |
 | ------------- |:-------------:|
-| cppjieba-py      | 8s  |
-| jieba      | 77s    |
+| cppjieba-py      | 6.218346  |
+| jieba      | 1:24.703040    |
 
 
 ## 使用

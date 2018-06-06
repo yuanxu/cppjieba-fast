@@ -5,6 +5,7 @@ def main():
 
     jieba_instance = Tokenizer()
     seg_list = jieba_instance.cut("我来到北京清华大学")
+    print(type(seg_list))
     print("Full Mode: " + "/ ".join(seg_list))  # 全模式
 
 

@@ -12,11 +12,11 @@ const std::string IDF_PATH = "cppjieba/dict/idf.utf8";
 const std::string STOP_WORD_PATH = "cppjieba/dict/stop_words.utf8";
 using namespace std;
 
-PYBIND11_MAKE_OPAQUE(std::vector<cppjieba::Word>);
+// PYBIND11_MAKE_OPAQUE(std::vector<cppjieba::Word>);
 
 using Word = cppjieba::Word;
 
-using WordVector = std::vector<Word>;
+using WordVector = std::vector<string>;
 
 using WordsTaged = vector<pair<string, string>>;
 
@@ -146,23 +146,6 @@ struct Tokenizer
 PYBIND11_MODULE(cppjieba_py, m)
 {
     m.doc() = "python extension for cppjieba"; // optional module docstring
-
-    py::class_<Word>(m, "Word")
-        .def_readonly("word", &Word::word, pybind11::return_value_policy::take_ownership)
-        .def("__str__", [](const Word &v) {
-            return v.word;
-        })
-        .def("__repr__", [](const Word &v) {
-            return v.word;
-        });
-
-    py::class_<WordVector>(m, "WordVector")
-        .def(py::init<>())
-        .def("clear", &WordVector::clear)
-        .def("__len__", [](const WordVector &v) { return v.size(); })
-        .def("__iter__", [](WordVector &v) {
-            return py::make_iterator<>(v.begin(), v.end());
-        });
 
     m.def("cut_internal", &Jieba::cut_internal, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true);
     m.def("lcut", &Jieba::lcut, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true);
