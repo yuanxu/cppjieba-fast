@@ -92,7 +92,7 @@ struct Tokenizer
 {
     Tokenizer *dt;
 
-    void initlize()
+    void initialize()
     {
         dt = new Tokenizer();
     };
@@ -101,7 +101,7 @@ struct Tokenizer
     {
         if (!dt)
         {
-            initlize();
+            initialize();
         }
     };
 
@@ -153,6 +153,7 @@ PYBIND11_MODULE(cppjieba_py, m)
     m.def("lcut_for_search", &Jieba::lcut_for_search, py::arg("sentence"), py::arg("HMM") = true);
     m.def("cut_for_search_internal", &Jieba::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true);
     m.def("tag_internal", &Jieba::tag_internal, py::arg("sentence"));
+    m.def("initialize", &Jieba::initialize);
 
     py::class_<Tokenizer>(m, "Tokenizer")
         .def(py::init<>())
