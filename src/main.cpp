@@ -86,60 +86,106 @@ struct Tokenizer
     };
 };
 
-
-
-    namespace Jieba
+namespace Jieba
 {
-    Tokenizer *dt;
+struct Analyse
+{
+  private:
+    Tokenizer *tokenizer;
+    cppjieba::KeywordExtractor *keywordExtractor;
 
-    void initialize()
+  public:
+    Analyse(Tokenizer *t) : tokenizer(t)
     {
-        dt = new Tokenizer();
+        initKeyowrdExtractor();
     };
 
-    void init_check()
+    vector<string> extract_tags(const string &sentence, size_t topK = 20)
     {
-        if (!dt)
-        {
-            initialize();
-        }
+        vector<string> keywords;
+        keywordExtractor->Extract(sentence, keywords, topK);
+        return keywords;
     };
 
-    WordsTaged tag_internal(const string &sentence)
+    void initKeyowrdExtractor(const string &idfPath = IDF_PATH,
+                              const string &stopWordPath = STOP_WORD_PATH)
     {
-        init_check();
-        return dt->tag_internal(sentence);
+        keywordExtractor = new cppjieba::KeywordExtractor(tokenizer->jieba.GetDictTrie(), tokenizer->jieba.GetHMMModel(), idfPath, stopWordPath);
     };
+};
 
-    WordVector cut_internal(const string &sentence, bool cut_all = false, bool HMM = true)
-    {
-        init_check();
-        return dt->cut_internal(sentence, cut_all, HMM);
-    };
+Tokenizer *dt;
+Analyse *analyse;
 
-    vector<string> lcut(const string &sentence, bool cut_all = false, bool HMM = true)
-    {
-        init_check();
-        return dt->lcut(sentence, cut_all, HMM);
-    };
+void initialize()
+{
 
-    vector<string> lcut_all(const string &sentence)
-    {
-        init_check();
-        return dt->lcut_all(sentence);
-    };
+    dt = new Tokenizer();
+};
 
-    WordVector cut_for_search_internal(const string &sentence, bool HMM = true)
+void init_check()
+{
+    if (!dt)
     {
-        init_check();
-        return dt->cut_for_search_internal(sentence, HMM);
-    };
+        initialize();
+    }
+};
 
-    vector<string> lcut_for_search(const string &sentence, bool HMM = true)
+Tokenizer *get_default_tokenizer()
+{
+    init_check();
+    return dt;
+};
+
+void init_check_analyse()
+{
+    if (!analyse)
     {
-        init_check();
-        return dt->lcut_for_search(sentence, HMM);
-    };
+        analyse = new Analyse(get_default_tokenizer());
+    }
+};
+
+Analyse *get_default_analyse()
+{
+    init_check_analyse();
+    return analyse;
+};
+
+WordsTaged tag_internal(const string &sentence)
+{
+    init_check();
+    return dt->tag_internal(sentence);
+};
+
+WordVector cut_internal(const string &sentence, bool cut_all = false, bool HMM = true)
+{
+    init_check();
+    return dt->cut_internal(sentence, cut_all, HMM);
+};
+
+vector<string> lcut(const string &sentence, bool cut_all = false, bool HMM = true)
+{
+    init_check();
+    return dt->lcut(sentence, cut_all, HMM);
+};
+
+vector<string> lcut_all(const string &sentence)
+{
+    init_check();
+    return dt->lcut_all(sentence);
+};
+
+WordVector cut_for_search_internal(const string &sentence, bool HMM = true)
+{
+    init_check();
+    return dt->cut_for_search_internal(sentence, HMM);
+};
+
+vector<string> lcut_for_search(const string &sentence, bool HMM = true)
+{
+    init_check();
+    return dt->lcut_for_search(sentence, HMM);
+};
 
 }; // namespace Jieba
 
@@ -154,6 +200,10 @@ PYBIND11_MODULE(libcppjieba, m)
     m.def("cut_for_search_internal", &Jieba::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true);
     m.def("tag_internal", &Jieba::tag_internal, py::arg("sentence"));
     m.def("initialize", &Jieba::initialize);
+    m.def("get_default_analyse", &Jieba::get_default_analyse);
+    py::class_<Jieba::Analyse>(m, "Analyse")
+        .def(py::init<Tokenizer *>())
+        .def("extract_tags", &Jieba::Analyse::extract_tags, py::arg("sentence"), py::arg("topK") = 20);
 
     py::class_<Tokenizer>(m, "Tokenizer")
         .def(py::init<>())
