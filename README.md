@@ -18,9 +18,9 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 
 ```python
 # -*- coding: utf-8 -*-
-from cppjieba_py import jieba 
-
-jieba_instance = jieba("cppjieba/dict/user.dict.utf8")
+import cppjieba_py as jieba 
+# or use defualt Tokenizer: jieba.cut 
+jieba_instance = Tokenizer("cppjieba/dict/user.dict.utf8")
 seg_list = jieba_instance.cut("我来到北京清华大学")
 print("Full Mode: " + "/ ".join(seg_list))  # 全模式
 
@@ -34,7 +34,12 @@ print(", ".join(seg_list))
     
 ```
 
-## 安装
+## 安装  
+
+* 从发行包安装  
+	see [releases](https://github.com/bung87/cppjieba-py/releases)  
+
+	```pip install https://github.com/bung87/cppjieba-py/files/<xxxxxxx>/cppjieba_py-<x.x.x>.tar.gz```  
 
 * 从源代码安装
 
