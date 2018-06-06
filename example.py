@@ -2,6 +2,7 @@ from cppjieba_py import Tokenizer, cut, cut_for_search, lcut, lcut_for_search, i
 import cppjieba_py.posseg as pseg
 import datetime
 from cppjieba_py import analyse
+from cppjieba_py.analyse import TextRank,TFIDF
 
 def main():
 
@@ -37,6 +38,13 @@ def main():
 
     r = analyse.textrank(s, withWeight=True)
     print(r)
+
+    tr = TextRank(jieba_instance)
+    print(tr.textrank(s,topK=2,withWeight=True))
+
+    tf = TFIDF(jieba_instance)
+    print(tf.extract_tags(s,topK=10))
+
 
 if __name__ == '__main__':
     main()

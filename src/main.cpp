@@ -102,10 +102,22 @@ struct KeywordExtractor
     Tokenizer *tokenizer;
     cppjieba::KeywordExtractor *keywordExtractor;
 
+    void initKeyowrdExtractor(const string &idfPath = IDF_PATH,
+                              const string &stopWordPath = STOP_WORD_PATH)
+    {
+        keywordExtractor = new cppjieba::KeywordExtractor(tokenizer->jieba.GetDictTrie(), tokenizer->jieba.GetHMMModel(), idfPath, stopWordPath);
+    };
+
   public:
     KeywordExtractor(Tokenizer *t) : tokenizer(t)
     {
         initKeyowrdExtractor();
+    };
+
+    KeywordExtractor(Tokenizer *t, const string &idfPath,
+                     const string &stopWordPath) : tokenizer(t)
+    {
+        initKeyowrdExtractor(idfPath, stopWordPath);
     };
 
     vector<string> extract_tags(const string &sentence, size_t topK = 20)
@@ -113,12 +125,6 @@ struct KeywordExtractor
         vector<string> keywords;
         keywordExtractor->Extract(sentence, keywords, topK);
         return keywords;
-    };
-
-    void initKeyowrdExtractor(const string &idfPath = IDF_PATH,
-                              const string &stopWordPath = STOP_WORD_PATH)
-    {
-        keywordExtractor = new cppjieba::KeywordExtractor(tokenizer->jieba.GetDictTrie(), tokenizer->jieba.GetHMMModel(), idfPath, stopWordPath);
     };
 };
 
@@ -128,13 +134,24 @@ struct TextRankExtractor
     Tokenizer *tokenizer;
     cppjieba::TextRankExtractor *textRankExtractor;
 
+    void initTextRankExtractor(const string &stopWordPath = STOP_WORD_PATH)
+
+    {
+        textRankExtractor = new cppjieba::TextRankExtractor(tokenizer->jieba.GetDictTrie(), tokenizer->jieba.GetHMMModel(), stopWordPath);
+    };
+
   public:
     TextRankExtractor(Tokenizer *t) : tokenizer(t)
     {
         initTextRankExtractor();
     };
 
-    vector<string> textrank(const string &sentence, size_t topK = 20)
+    TextRankExtractor(Tokenizer *t, const string &stopWordPath) : tokenizer(t)
+    {
+        initTextRankExtractor(stopWordPath);
+    };
+
+    vector<string> textrank_no_weight(const string &sentence, size_t topK = 20)
     {
         vector<string> keywords;
         textRankExtractor->Extract(sentence, keywords, topK);
@@ -146,12 +163,6 @@ struct TextRankExtractor
         vector<pair<string, double>> keywords;
         textRankExtractor->Extract(sentence, keywords, topK);
         return keywords;
-    };
-
-    void initTextRankExtractor(const string &stopWordPath = STOP_WORD_PATH)
-
-    {
-        textRankExtractor = new cppjieba::TextRankExtractor(tokenizer->jieba.GetDictTrie(), tokenizer->jieba.GetHMMModel(), stopWordPath);
     };
 };
 
@@ -268,12 +279,14 @@ PYBIND11_MODULE(libcppjieba, m)
 
     py::class_<Jieba::KeywordExtractor>(m, "KeywordExtractor")
         .def(py::init<Tokenizer *>())
+        .def(py::init<Tokenizer *, const string &, const string &>())
         .def("extract_tags", &Jieba::KeywordExtractor::extract_tags, py::arg("sentence"), py::arg("topK") = 20);
 
     py::class_<Jieba::TextRankExtractor>(m, "TextRankExtractor")
         .def(py::init<Tokenizer *>())
-        .def("textrank_with_weight", &Jieba::TextRankExtractor::textrank_with_weight, py::arg("sentence"), py::arg("topK") = 20)
-        .def("textrank", &Jieba::TextRankExtractor::textrank, py::arg("sentence"), py::arg("topK") = 20);
+        .def(py::init<Tokenizer *, const string &>())
+        .def("textrank_no_weight", &Jieba::TextRankExtractor::textrank_no_weight, py::arg("sentence"), py::arg("topK") = 20)
+        .def("textrank_with_weight", &Jieba::TextRankExtractor::textrank_with_weight, py::arg("sentence"), py::arg("topK") = 20);
 
     py::class_<Tokenizer>(m, "Tokenizer")
         .def(py::init<>())
