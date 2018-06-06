@@ -7,8 +7,8 @@ import datetime
 #wget https://raw.githubusercontent.com/yanyiwu/practice/master/nodejs/nodejieba/performance/weicheng.utf8 -O performace_test/weicheng.utf8
 
 if __name__ == "__main__":
-    if sys.argv[1] == "cppjiebapy":# 0:00:03.861202
-        import cppjiebapy as jieba
+    if sys.argv[1] == "cppjieba_py":# 0:00:03.861202
+        import cppjieba_py as jieba
     elif sys.argv[1] == "jieba": # 0:01:24.703040
         import jieba
     lines = []

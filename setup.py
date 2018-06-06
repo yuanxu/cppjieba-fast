@@ -21,7 +21,7 @@ class get_pybind_include(object):
 
 ext_modules = [
     Extension(
-        'cppjieba_py',
+        'libcppjieba',
         ['src/main.cpp'],
         include_dirs=[
             # Path to pybind11 headers
@@ -99,7 +99,7 @@ setup(
     url='https://github.com/fantasy/cppjieba-py',
     description='A python extension for cppjieba',
     long_description='',
-    packages=['cppjiebapy'],
+    packages=['cppjieba_py'],
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},

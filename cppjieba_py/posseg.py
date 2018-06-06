@@ -1,4 +1,4 @@
-from cppjieba_py import tag_internal
+from libcppjieba import tag_internal
 
 def cut(sentence):
        it = tag_internal(sentence)

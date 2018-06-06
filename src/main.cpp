@@ -143,7 +143,7 @@ struct Tokenizer
 
 }; // namespace Jieba
 
-PYBIND11_MODULE(cppjieba_py, m)
+PYBIND11_MODULE(libcppjieba, m)
 {
     m.doc() = "python extension for cppjieba"; // optional module docstring
 

@@ -1,5 +1,5 @@
-from cppjiebapy import Tokenizer, cut, cut_for_search, lcut, lcut_for_search, initialize
-import cppjiebapy.posseg as pseg
+from cppjieba_py import Tokenizer, cut, cut_for_search, lcut, lcut_for_search, initialize
+import cppjieba_py.posseg as pseg
 import datetime
 
 
