@@ -11,6 +11,8 @@ if __name__ == "__main__":
         import cppjieba_py as jieba
     elif sys.argv[1] == "jieba": # 0:01:24.703040
         import jieba
+    elif sys.argv[1] == "jieba_fast":
+        import jieba_fast as jieba
     lines = []
     weicheng = os.path.join(os.path.dirname(__file__),"weicheng.utf8")
     for line in open(weicheng):
