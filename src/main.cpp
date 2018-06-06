@@ -96,14 +96,14 @@ struct Tokenizer
 
 namespace Jieba
 {
-struct KeyowrdExtractor
+struct KeywordExtractor
 {
   private:
     Tokenizer *tokenizer;
     cppjieba::KeywordExtractor *keywordExtractor;
 
   public:
-    KeyowrdExtractor(Tokenizer *t) : tokenizer(t)
+    KeywordExtractor(Tokenizer *t) : tokenizer(t)
     {
         initKeyowrdExtractor();
     };
@@ -156,7 +156,7 @@ struct TextRankExtractor
 };
 
 Tokenizer *dt;
-KeyowrdExtractor *keywordExtractor;
+KeywordExtractor *keywordExtractor;
 TextRankExtractor *textRankExtractor;
 
 void initialize()
@@ -197,11 +197,11 @@ void init_check_keywordExtractor()
 {
     if (!keywordExtractor)
     {
-        keywordExtractor = new KeyowrdExtractor(get_default_tokenizer());
+        keywordExtractor = new KeywordExtractor(get_default_tokenizer());
     }
 };
 
-KeyowrdExtractor *get_default_keywordExtractor()
+KeywordExtractor *get_default_keywordExtractor()
 {
     init_check_keywordExtractor();
     return keywordExtractor;
@@ -266,9 +266,9 @@ PYBIND11_MODULE(libcppjieba, m)
     m.def("get_default_keywordExtractor", &Jieba::get_default_keywordExtractor);
     m.def("get_default_textrank_extractor", &Jieba::get_default_textrank_extractor);
 
-    py::class_<Jieba::KeyowrdExtractor>(m, "KeyowrdExtractor")
+    py::class_<Jieba::KeywordExtractor>(m, "KeywordExtractor")
         .def(py::init<Tokenizer *>())
-        .def("extract_tags", &Jieba::KeyowrdExtractor::extract_tags, py::arg("sentence"), py::arg("topK") = 20);
+        .def("extract_tags", &Jieba::KeywordExtractor::extract_tags, py::arg("sentence"), py::arg("topK") = 20);
 
     py::class_<Jieba::TextRankExtractor>(m, "TextRankExtractor")
         .def(py::init<Tokenizer *>())
