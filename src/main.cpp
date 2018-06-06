@@ -2,6 +2,7 @@
 #include <pybind11/complex.h>
 #include <pybind11/stl.h>
 #include "cppjieba/Jieba.hpp"
+#include "cppjieba/TextRankExtractor.hpp"
 #include <iostream>
 
 namespace py = pybind11;
@@ -95,14 +96,14 @@ struct Tokenizer
 
 namespace Jieba
 {
-struct Analyse
+struct KeyowrdExtractor
 {
   private:
     Tokenizer *tokenizer;
     cppjieba::KeywordExtractor *keywordExtractor;
 
   public:
-    Analyse(Tokenizer *t) : tokenizer(t)
+    KeyowrdExtractor(Tokenizer *t) : tokenizer(t)
     {
         initKeyowrdExtractor();
     };
@@ -121,8 +122,42 @@ struct Analyse
     };
 };
 
+struct TextRankExtractor
+{
+  private:
+    Tokenizer *tokenizer;
+    cppjieba::TextRankExtractor *textRankExtractor;
+
+  public:
+    TextRankExtractor(Tokenizer *t) : tokenizer(t)
+    {
+        initTextRankExtractor();
+    };
+
+    vector<string> textrank(const string &sentence, size_t topK = 20)
+    {
+        vector<string> keywords;
+        textRankExtractor->Extract(sentence, keywords, topK);
+        return keywords;
+    };
+
+    vector<pair<string, double>> textrank_with_weight(const string &sentence, size_t topK = 20)
+    {
+        vector<pair<string, double>> keywords;
+        textRankExtractor->Extract(sentence, keywords, topK);
+        return keywords;
+    };
+
+    void initTextRankExtractor(const string &stopWordPath = STOP_WORD_PATH)
+
+    {
+        textRankExtractor = new cppjieba::TextRankExtractor(tokenizer->jieba.GetDictTrie(), tokenizer->jieba.GetHMMModel(), stopWordPath);
+    };
+};
+
 Tokenizer *dt;
-Analyse *analyse;
+KeyowrdExtractor *keywordExtractor;
+TextRankExtractor *textRankExtractor;
 
 void initialize()
 {
@@ -144,18 +179,32 @@ Tokenizer *get_default_tokenizer()
     return dt;
 };
 
-void init_check_analyse()
+void init_check_textrank_extractor()
 {
-    if (!analyse)
+    if (!textRankExtractor)
     {
-        analyse = new Analyse(get_default_tokenizer());
+        textRankExtractor = new TextRankExtractor(get_default_tokenizer());
     }
 };
 
-Analyse *get_default_analyse()
+TextRankExtractor *get_default_textrank_extractor()
 {
-    init_check_analyse();
-    return analyse;
+    init_check_textrank_extractor();
+    return textRankExtractor;
+};
+
+void init_check_keywordExtractor()
+{
+    if (!keywordExtractor)
+    {
+        keywordExtractor = new KeyowrdExtractor(get_default_tokenizer());
+    }
+};
+
+KeyowrdExtractor *get_default_keywordExtractor()
+{
+    init_check_keywordExtractor();
+    return keywordExtractor;
 };
 
 WordsTaged tag_internal(const string &sentence)
@@ -194,7 +243,6 @@ vector<string> cut_all(const string &sentence)
     return dt->cut_all(sentence);
 };
 
-
 vector<string> lcut_for_search(const string &sentence, bool HMM = true)
 {
     init_check();
@@ -215,10 +263,17 @@ PYBIND11_MODULE(libcppjieba, m)
     m.def("cut_for_search_internal", &Jieba::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true);
     m.def("tag_internal", &Jieba::tag_internal, py::arg("sentence"));
     m.def("initialize", &Jieba::initialize);
-    m.def("get_default_analyse", &Jieba::get_default_analyse);
-    py::class_<Jieba::Analyse>(m, "Analyse")
+    m.def("get_default_keywordExtractor", &Jieba::get_default_keywordExtractor);
+    m.def("get_default_textrank_extractor", &Jieba::get_default_textrank_extractor);
+
+    py::class_<Jieba::KeyowrdExtractor>(m, "KeyowrdExtractor")
         .def(py::init<Tokenizer *>())
-        .def("extract_tags", &Jieba::Analyse::extract_tags, py::arg("sentence"), py::arg("topK") = 20);
+        .def("extract_tags", &Jieba::KeyowrdExtractor::extract_tags, py::arg("sentence"), py::arg("topK") = 20);
+
+    py::class_<Jieba::TextRankExtractor>(m, "TextRankExtractor")
+        .def(py::init<Tokenizer *>())
+        .def("textrank_with_weight", &Jieba::TextRankExtractor::textrank_with_weight, py::arg("sentence"), py::arg("topK") = 20)
+        .def("textrank", &Jieba::TextRankExtractor::textrank, py::arg("sentence"), py::arg("topK") = 20);
 
     py::class_<Tokenizer>(m, "Tokenizer")
         .def(py::init<>())

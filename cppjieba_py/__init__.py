@@ -39,6 +39,3 @@ _c_cut_for_search.__doc__ = _iter_wraps_doc(Tokenizer.cut_for_search_internal)
 setattr(Tokenizer,"cut",_c_cut)
 setattr(Tokenizer,"cut_for_search",_c_cut_for_search)
 
-from libcppjieba import get_default_analyse
-
-analyse = get_default_analyse()
