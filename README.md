@@ -21,6 +21,10 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 * pypi  
 
 	```pip install cppjieba-py```  
+	
+	或者你设置的安装源并未收录本项目  
+
+	```pip install -i https://pypi.org/simple/ cppjieba-py```  
 
 * 从发行包安装  
 	see [releases](https://github.com/bung87/cppjieba-py/releases)  
@@ -31,7 +35,6 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 
 	```
 	$ git clone --recursive https://github.com/bung87/cppjieba-py
-	$ python setup.py build 
 	$ python setup.py install 
 	```
 
