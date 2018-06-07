@@ -1,7 +1,6 @@
-from libcppjieba import cut_for_search_internal as _cut_for_search_internal,\
-    tag_internal as _tag_internal,\
-    cut_internal as _cut_internal
-from libcppjieba import Tokenizer
+
+import libcppjieba
+from libcppjieba import Tokenizer,add_word
 from libcppjieba import lcut,lcut_for_search,initialize
 from libcppjieba import cut_all as _cut_all,lcut_all
 
@@ -9,33 +8,33 @@ def _iter_wraps_doc(origin):
     return origin.__doc__.replace(origin.__name__,"Iterator wraps %s" % origin.__name__,1)  
     
 def cut(*args,**kvargs):
-    it = _cut_internal(*args,**kvargs)
+    it = libcppjieba.cut(*args,**kvargs)
     return iter(it)
 
 def cut_all(*args,**kvargs):
     it = _cut_all(*args,**kvargs)
     return iter(it)
 
-cut.__doc__ = _iter_wraps_doc(_cut_internal)
+cut.__doc__ = _iter_wraps_doc(libcppjieba.cut)
 
 def cut_for_search(*args,**kvargs):
-    it = _cut_for_search_internal(*args,**kvargs)
+    it = libcppjieba.cut_for_search(*args,**kvargs)
     return iter(it)
     
-cut_for_search.__doc__ = _iter_wraps_doc(_cut_for_search_internal)
+cut_for_search.__doc__ = _iter_wraps_doc(libcppjieba.cut_for_search)
 
-def _c_cut(ins,*args,**kvargs):
+def _cut(ins,*args,**kvargs):
     it = ins.cut_internal(*args,**kvargs)
     return iter(it)
 
-def _c_cut_for_search(ins,*args,**kvargs):
+def _cut_for_search(ins,*args,**kvargs):
     it = ins.cut_for_search_internal(*args,**kvargs)
     return iter(it)
 
-_c_cut.__doc__ = _iter_wraps_doc(Tokenizer.cut_internal)
+_cut.__doc__ = _iter_wraps_doc(Tokenizer.cut_internal)
 
-_c_cut_for_search.__doc__ = _iter_wraps_doc(Tokenizer.cut_for_search_internal)
+_cut_for_search.__doc__ = _iter_wraps_doc(Tokenizer.cut_for_search_internal)
 
-setattr(Tokenizer,"cut",_c_cut)
-setattr(Tokenizer,"cut_for_search",_c_cut_for_search)
+setattr(Tokenizer,"cut",_cut)
+setattr(Tokenizer,"cut_for_search",_cut_for_search)
 

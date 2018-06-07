@@ -13,11 +13,11 @@ const std::string IDF_PATH = "cppjieba/dict/idf.utf8";
 const std::string STOP_WORD_PATH = "cppjieba/dict/stop_words.utf8";
 using namespace std;
 
-// PYBIND11_MAKE_OPAQUE(std::vector<cppjieba::Word>);
+// PYBIND11_MAKE_OPAQUE(std::vector<cppjieba::string>);
 
 using Word = cppjieba::Word;
 
-using WordVector = std::vector<string>;
+using WordVector = vector<string>;
 
 using WordsTaged = vector<pair<string, string>>;
 
@@ -28,6 +28,28 @@ struct Tokenizer
   public:
     Tokenizer(const string &USER_DICT_PATH) : jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH){};
     Tokenizer() : jieba(DICT_PATH, HMM_PATH, "", IDF_PATH, STOP_WORD_PATH){};
+    vector<tuple<string, uint32_t, uint32_t>> tokenize(const string &sentence, const string &mode = "default", bool HMM = true)
+    {
+        vector<tuple<string, uint32_t, uint32_t>> result;
+        vector<Word> words;
+        if (mode.compare("default") == 0)
+        {
+            jieba.Cut(sentence, words, HMM);
+        }
+        else
+        {
+            jieba.CutForSearch(sentence, words, HMM);
+        }
+
+        vector<Word>::const_iterator it;
+        it = words.begin();
+        while (it != words.end())
+        {
+            result.push_back(make_tuple(it->word, it->unicode_offset, it->unicode_offset + it->unicode_length));
+            ++it;
+        }
+        return result;
+    };
 
     WordVector cut_internal(const string &sentence, bool cut_all = false, bool HMM = true)
     {
@@ -91,6 +113,11 @@ struct Tokenizer
         WordsTaged words;
         jieba.Tag(sentence, words);
         return words;
+    };
+
+    bool add_word(const string &word, const string &tag = cppjieba::UNKNOWN_TAG)
+    {
+        return jieba.InsertUserWord(word, tag);
     };
 };
 
@@ -212,19 +239,19 @@ void init_check_keywordExtractor()
     }
 };
 
-KeywordExtractor *get_default_keywordExtractor()
+KeywordExtractor *get_default_keyword_extractor()
 {
     init_check_keywordExtractor();
     return keywordExtractor;
 };
 
-WordsTaged tag_internal(const string &sentence)
+WordsTaged tag(const string &sentence)
 {
     init_check();
     return dt->tag_internal(sentence);
 };
 
-WordVector cut_internal(const string &sentence, bool cut_all = false, bool HMM = true)
+WordVector cut(const string &sentence, bool cut_all = false, bool HMM = true)
 {
     init_check();
     return dt->cut_internal(sentence, cut_all, HMM);
@@ -242,7 +269,7 @@ vector<string> lcut_all(const string &sentence)
     return dt->lcut_all(sentence);
 };
 
-WordVector cut_for_search_internal(const string &sentence, bool HMM = true)
+WordVector cut_for_search(const string &sentence, bool HMM = true)
 {
     init_check();
     return dt->cut_for_search_internal(sentence, HMM);
@@ -260,22 +287,35 @@ vector<string> lcut_for_search(const string &sentence, bool HMM = true)
     return dt->lcut_for_search(sentence, HMM);
 };
 
+bool add_word(const string &word, const string &tag = cppjieba::UNKNOWN_TAG)
+{
+    init_check();
+    return dt->add_word(word, tag);
+};
+
+vector<tuple<string, uint32_t, uint32_t>> tokenize(const string &sentence, const string &mode = "default", bool HMM = true){
+    init_check();
+    return dt->tokenize(sentence,mode, HMM);
+};
+
 }; // namespace Jieba
 
 PYBIND11_MODULE(libcppjieba, m)
 {
     m.doc() = "python extension for cppjieba"; // optional module docstring
 
-    m.def("cut_internal", &Jieba::cut_internal, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true);
+    m.def("cut", &Jieba::cut, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true);
     m.def("lcut", &Jieba::lcut, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true);
     m.def("cut_all", &Jieba::cut_all);
     m.def("lcut_all", &Jieba::lcut_all);
     m.def("lcut_for_search", &Jieba::lcut_for_search, py::arg("sentence"), py::arg("HMM") = true);
-    m.def("cut_for_search_internal", &Jieba::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true);
-    m.def("tag_internal", &Jieba::tag_internal, py::arg("sentence"));
+    m.def("cut_for_search", &Jieba::cut_for_search, py::arg("sentence"), py::arg("HMM") = true);
+    m.def("tag", &Jieba::tag, py::arg("sentence"));
     m.def("initialize", &Jieba::initialize);
-    m.def("get_default_keywordExtractor", &Jieba::get_default_keywordExtractor);
+    m.def("get_default_keyword_extractor", &Jieba::get_default_keyword_extractor);
     m.def("get_default_textrank_extractor", &Jieba::get_default_textrank_extractor);
+    m.def("add_word", &Jieba::add_word, py::arg("word"), py::arg("tag") = cppjieba::UNKNOWN_TAG);
+    m.def("tokenize", &Jieba::tokenize, py::arg("sentence"), py::arg("mode") = "default", py::arg("HMM") = true);
 
     py::class_<Jieba::KeywordExtractor>(m, "KeywordExtractor")
         .def(py::init<Tokenizer *>())
@@ -297,5 +337,16 @@ PYBIND11_MODULE(libcppjieba, m)
         .def("cut_all", &Tokenizer::cut_all)
         .def("lcut_for_search", &Tokenizer::lcut_for_search, py::arg("sentence"), py::arg("HMM") = true)
         .def("cut_for_search_internal", &Tokenizer::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true)
-        .def("tag_internal", &Tokenizer::tag_internal, py::arg("sentence"));
+        .def("tag_internal", &Tokenizer::tag_internal, py::arg("sentence"))
+        .def("add_word", &Tokenizer::add_word, py::arg("word"), py::arg("tag") = cppjieba::UNKNOWN_TAG)
+        .def("tokenize", &Tokenizer::tokenize, py::arg("sentence"), py::arg("mode") = "default", py::arg("HMM") = true);
+
+    // py::class_<Word>(m, "Word")
+    //     .def_readonly("word", &Word::word)
+    //     .def("__str__", [](const Word &v) {
+    //         return v.word;
+    //     })
+    //     .def("__repr__", [](const Word &v) {
+    //         return v.word;
+    //     });
 }

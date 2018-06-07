@@ -1,8 +1,8 @@
-from libcppjieba import tag_internal
+
+import libcppjieba
 
 def cut(sentence):
-       it = tag_internal(sentence)
+       it = libcppjieba.tag(sentence)
        return iter(it)
 
-def lcut(sentence):
-    return tag_internal(sentence)
+lcut = libcppjieba.tag
