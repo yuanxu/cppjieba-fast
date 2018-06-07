@@ -1,6 +1,20 @@
 # cppjieba-py
 
-cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装。
+cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装。 
+
+由于只是对cppjieba的接口进行的封装，所以执行效率上非常接近于原cppjieba。  
+
+项目主要分为两个部分**libcppjieba** 为 cppjieba 的 python extension，  
+**cppjieba_py** 为使开发者平滑过渡到使用cppjieba-py而作的 python package。 
+具体见[example.py](example.py)。  
+
+### 区别  
+
+* 原jieba的`.cut`族接口基本都由python的`iter()`函数包裹list结果来实现。  
+* 原jieba的`.set_*`方法基本都由class传入初始化的参数来完成。  
+* `.add_word` 由于cppjieba没提供**freq**参数，实现上不一致。  
+* `.del_word` 和`.suggest_freq` cppjieba没提供。  
+* `POSTokenizer.lcut` 在`Tokenizer.tag` 下， 唯一一个只提供了list返回类型的接口。
 
 ## 安装  
 

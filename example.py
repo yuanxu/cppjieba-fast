@@ -1,4 +1,4 @@
-from cppjieba_py import Tokenizer, cut, cut_for_search, lcut, lcut_for_search, initialize
+from cppjieba_py import Tokenizer, cut, tokenize, cut_for_search, lcut, lcut_for_search, initialize
 import cppjieba_py.posseg as pseg
 import datetime
 from cppjieba_py import analyse
@@ -48,6 +48,8 @@ def main():
     result = jieba_instance.tokenize('永和服装饰品有限公司')
     for tk in result:
         print("word %s\t\t start: %d \t\t end:%d" % (tk[0],tk[1],tk[2]))
+
+    print(tokenize('永和服装饰品有限公司',mode="search"))
 
 
 if __name__ == '__main__':

@@ -108,7 +108,7 @@ struct Tokenizer
         return words;
     };
 
-    WordsTaged tag_internal(const string &sentence)
+    WordsTaged tag(const string &sentence)
     {
         WordsTaged words;
         jieba.Tag(sentence, words);
@@ -248,7 +248,7 @@ KeywordExtractor *get_default_keyword_extractor()
 WordsTaged tag(const string &sentence)
 {
     init_check();
-    return dt->tag_internal(sentence);
+    return dt->tag(sentence);
 };
 
 WordVector cut(const string &sentence, bool cut_all = false, bool HMM = true)
@@ -337,7 +337,7 @@ PYBIND11_MODULE(libcppjieba, m)
         .def("cut_all", &Tokenizer::cut_all)
         .def("lcut_for_search", &Tokenizer::lcut_for_search, py::arg("sentence"), py::arg("HMM") = true)
         .def("cut_for_search_internal", &Tokenizer::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true)
-        .def("tag_internal", &Tokenizer::tag_internal, py::arg("sentence"))
+        .def("tag", &Tokenizer::tag, py::arg("sentence"))
         .def("add_word", &Tokenizer::add_word, py::arg("word"), py::arg("tag") = cppjieba::UNKNOWN_TAG)
         .def("tokenize", &Tokenizer::tokenize, py::arg("sentence"), py::arg("mode") = "default", py::arg("HMM") = true);
 

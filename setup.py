@@ -4,7 +4,7 @@ import sys
 import setuptools
 import os
 
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -96,7 +96,7 @@ setup(
     version=__version__,
     author='bung87,yeping zheng',
     url='https://github.com/bung87/cppjieba-py/',
-    description='A python extension for cppjieba',
+    description='python bindings of cppjieba',
     long_description= open("README.md").read(),
     ext_modules=ext_modules,
     packages=['cppjieba_py'],
