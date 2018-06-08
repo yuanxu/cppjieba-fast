@@ -7,7 +7,7 @@ import os
 from distutils.sysconfig import get_python_lib
 site_package_dir = get_python_lib() + os.path.sep
 
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -97,7 +97,6 @@ class BuildExt(build_ext):
             ext.extra_compile_args = opts
         build_ext.build_extensions(self)
 
-
 setup(
     name='cppjieba_py',
     version=__version__,
@@ -112,6 +111,9 @@ setup(
      },
     include_package_data=True,
     install_requires=['pybind11>=2.2'],
+    extras_require={
+        'test': ['spec']
+    },
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
 )

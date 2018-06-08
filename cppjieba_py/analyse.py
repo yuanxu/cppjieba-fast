@@ -1,9 +1,12 @@
+# pylint: disable=E0611
 from libcppjieba import get_default_keyword_extractor ,\
     get_default_textrank_extractor
 
 from libcppjieba import KeywordExtractor ,\
-      TextRankExtractor as TextRank
+      TextRankExtractor 
+# pylint: enable=E0611
 
+TextRank = TextRankExtractor
 TFIDF = KeywordExtractor
 
 def _textrank(self,sentence, topK=20, withWeight=False):

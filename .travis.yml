@@ -1,0 +1,18 @@
+language: python
+python:
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
+sudo: false
+before_install:
+- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+- sudo apt-get -y update
+- sudo apt-get -y install build-essential
+- sudo apt-get -y install g++-5
+- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 1
+- g++ --version
+install:
+- pip install -e .
+script:
+- nosetests -c nose.cfg
