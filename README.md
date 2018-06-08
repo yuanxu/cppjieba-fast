@@ -1,4 +1,6 @@
-# cppjieba-py
+# cppjieba-py   
+
+[![Build Status](https://travis-ci.org/bung87/cppjieba-py.svg?branch=master)](https://travis-ci.org/bung87/cppjieba-py)
 
 cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装。 
 

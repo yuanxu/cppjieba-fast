@@ -112,7 +112,7 @@ setup(
     include_package_data=True,
     install_requires=['pybind11>=2.2'],
     extras_require={
-        'test': ['spec']
+        'test': ['spec==1.4.1']
     },
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
