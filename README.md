@@ -47,7 +47,7 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 # -*- coding: utf-8 -*-
 import cppjieba_py as jieba 
 # or use defualt Tokenizer: jieba.cut 
-jieba_instance = Tokenizer("cppjieba/dict/user.dict.utf8")
+jieba_instance = Tokenizer("cppjieba/dict/jieba.dict.utf8")
 seg_list = jieba_instance.cut("我来到北京清华大学",cut_all = True)
 print("Full Mode: " + "/ ".join(seg_list))  # 全模式
 

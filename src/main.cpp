@@ -29,6 +29,7 @@ struct Tokenizer
     Tokenizer() : jieba(DICT_PATH, HMM_PATH, "", IDF_PATH, STOP_WORD_PATH){};
     Tokenizer(const string& main_dict) : jieba(main_dict, HMM_PATH, "", IDF_PATH, STOP_WORD_PATH){};
     Tokenizer(const string& main_dict,const string& user_dict) : jieba(main_dict, HMM_PATH, user_dict, IDF_PATH, STOP_WORD_PATH){};
+    Tokenizer(const string& main_dict,const string& user_dict,const string& stop_word_path) : jieba(main_dict, HMM_PATH, user_dict, IDF_PATH, stop_word_path){};
     vector<tuple<string, uint32_t, uint32_t>> tokenize(const string &sentence, const string &mode = "default", bool HMM = true)
     {
         vector<tuple<string, uint32_t, uint32_t>> result;
@@ -363,6 +364,7 @@ PYBIND11_MODULE(libcppjieba, m)
         .def(py::init<>())
         .def(py::init<const string&>())
         .def(py::init<const string&,const string&>())
+        .def(py::init<const string&,const string&,const string&>())
         .def("cut_internal", &Tokenizer::cut_internal, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true)
         .def("lcut", &Tokenizer::lcut, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true)
         .def("lcut_all", &Tokenizer::lcut_all)
