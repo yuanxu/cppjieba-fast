@@ -3,4 +3,4 @@
 	url = https://github.com/pybind/pybind11.git
 [submodule "cppjieba"]
 	path = cppjieba
-	url = https://github.com/yanyiwu/cppjieba.git
+	url = https://github.com/bung87/cppjieba.git
