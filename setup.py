@@ -4,6 +4,9 @@ import sys
 import setuptools
 import os
 
+from distutils.sysconfig import get_python_lib
+site_package_dir = get_python_lib() + os.path.sep
+
 __version__ = '0.0.6'
 
 class get_pybind_include(object):
@@ -80,12 +83,16 @@ class BuildExt(build_ext):
         if ct == 'unix':
             opts.append('-DVERSION_INFO="%s"' %
                         self.distribution.get_version())
+            opts.append('-DSITE_PACKAGE_PATH="%s"' %
+                        site_package_dir)
             opts.append(cpp_flag(self.compiler))
             if has_flag(self.compiler, '-fvisibility=hidden'):
                 opts.append('-fvisibility=hidden')
         elif ct == 'msvc':
             opts.append('/DVERSION_INFO=\\"%s\\"' %
                         self.distribution.get_version())
+            opts.append('/DSITE_PACKAGE_PATH=\\"%s\\"' %
+                        site_package_dir)
         for ext in self.extensions:
             ext.extra_compile_args = opts
         build_ext.build_extensions(self)
