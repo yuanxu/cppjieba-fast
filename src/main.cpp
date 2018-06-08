@@ -26,8 +26,9 @@ struct Tokenizer
     cppjieba::Jieba jieba;
 
   public:
-    Tokenizer(const string &USER_DICT_PATH) : jieba(DICT_PATH, HMM_PATH, USER_DICT_PATH, IDF_PATH, STOP_WORD_PATH){};
     Tokenizer() : jieba(DICT_PATH, HMM_PATH, "", IDF_PATH, STOP_WORD_PATH){};
+    Tokenizer(const string& main_dict) : jieba(main_dict, HMM_PATH, "", IDF_PATH, STOP_WORD_PATH){};
+    Tokenizer(const string& main_dict,const string& user_dict) : jieba(main_dict, HMM_PATH, user_dict, IDF_PATH, STOP_WORD_PATH){};
     vector<tuple<string, uint32_t, uint32_t>> tokenize(const string &sentence, const string &mode = "default", bool HMM = true)
     {
         vector<tuple<string, uint32_t, uint32_t>> result;
@@ -49,6 +50,18 @@ struct Tokenizer
             ++it;
         }
         return result;
+    };
+
+    void load_userdict(const vector<string>& buf){
+        jieba.LoadUserDict(buf);
+    };
+
+    void load_userdict(const set<string>& buf){
+        jieba.LoadUserDict(buf);
+    };
+
+    void load_userdict(const string& path){
+        jieba.LoadUserDict(path);
     };
 
     WordVector cut_internal(const string &sentence, bool cut_all = false, bool HMM = true)
@@ -298,6 +311,21 @@ vector<tuple<string, uint32_t, uint32_t>> tokenize(const string &sentence, const
     return dt->tokenize(sentence,mode, HMM);
 };
 
+void load_userdict2(const vector<string>& buf){
+    init_check();
+    dt->load_userdict(buf);
+};
+
+void load_userdict3(const set<string>& buf){
+    init_check();
+    dt->load_userdict(buf);
+};
+
+void load_userdict(const string& path){
+    init_check();
+    dt->load_userdict(path);
+};
+
 }; // namespace Jieba
 
 PYBIND11_MODULE(libcppjieba, m)
@@ -316,6 +344,9 @@ PYBIND11_MODULE(libcppjieba, m)
     m.def("get_default_textrank_extractor", &Jieba::get_default_textrank_extractor);
     m.def("add_word", &Jieba::add_word, py::arg("word"), py::arg("tag") = cppjieba::UNKNOWN_TAG);
     m.def("tokenize", &Jieba::tokenize, py::arg("sentence"), py::arg("mode") = "default", py::arg("HMM") = true);
+    m.def("load_userdict",(void (*)(const vector<string>&) ) &Jieba::load_userdict2);
+    m.def("load_userdict",(void (*)(const set<string>&) ) &Jieba::load_userdict3);
+    m.def("load_userdict",(void (*)(const string&) ) &Jieba::load_userdict);
 
     py::class_<Jieba::KeywordExtractor>(m, "KeywordExtractor")
         .def(py::init<Tokenizer *>())
@@ -330,7 +361,8 @@ PYBIND11_MODULE(libcppjieba, m)
 
     py::class_<Tokenizer>(m, "Tokenizer")
         .def(py::init<>())
-        .def(py::init<const string &>())
+        .def(py::init<const string&>())
+        .def(py::init<const string&,const string&>())
         .def("cut_internal", &Tokenizer::cut_internal, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true)
         .def("lcut", &Tokenizer::lcut, py::arg("sentence"), py::arg("cut_all") = false, py::arg("HMM") = true)
         .def("lcut_all", &Tokenizer::lcut_all)
@@ -339,8 +371,10 @@ PYBIND11_MODULE(libcppjieba, m)
         .def("cut_for_search_internal", &Tokenizer::cut_for_search_internal, py::arg("sentence"), py::arg("HMM") = true)
         .def("tag", &Tokenizer::tag, py::arg("sentence"))
         .def("add_word", &Tokenizer::add_word, py::arg("word"), py::arg("tag") = cppjieba::UNKNOWN_TAG)
-        .def("tokenize", &Tokenizer::tokenize, py::arg("sentence"), py::arg("mode") = "default", py::arg("HMM") = true);
-
+        .def("tokenize", &Tokenizer::tokenize, py::arg("sentence"), py::arg("mode") = "default", py::arg("HMM") = true)
+        .def("load_userdict",(void (Tokenizer::*)(const vector<string>&) ) &Tokenizer::load_userdict)
+        .def("load_userdict",(void (Tokenizer::*)(const string&) ) &Tokenizer::load_userdict)
+        .def("load_userdict",(void (Tokenizer::*)(const set<string>&) ) &Tokenizer::load_userdict);
     // py::class_<Word>(m, "Word")
     //     .def_readonly("word", &Word::word)
     //     .def("__str__", [](const Word &v) {

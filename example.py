@@ -1,4 +1,4 @@
-from cppjieba_py import Tokenizer, cut, tokenize, cut_for_search, lcut, lcut_for_search, initialize
+from cppjieba_py import Tokenizer, cut, tokenize, cut_for_search, lcut, lcut_for_search, initialize, load_userdict
 import cppjieba_py.posseg as pseg
 import datetime
 from cppjieba_py import analyse
@@ -51,6 +51,9 @@ def main():
 
     print(tokenize('永和服装饰品有限公司',mode="search"))
 
+    jieba_instance.load_userdict(["卧槽"])
+
+    load_userdict(set(["卧槽"]))
 
 if __name__ == '__main__':
     main()
