@@ -7,10 +7,10 @@
 
 namespace py = pybind11;
 
-const std::string DICT_PATH = "cppjieba/dict/jieba.dict.utf8";
-const std::string HMM_PATH = "cppjieba/dict/hmm_model.utf8";
-const std::string IDF_PATH = "cppjieba/dict/idf.utf8";
-const std::string STOP_WORD_PATH = "cppjieba/dict/stop_words.utf8";
+const std::string DICT_PATH = "../cppjieba/dict/jieba.dict.utf8";
+const std::string HMM_PATH = "../cppjieba/dict/hmm_model.utf8";
+const std::string IDF_PATH = "../cppjieba/dict/idf.utf8";
+const std::string STOP_WORD_PATH = "../cppjieba/dict/stop_words.utf8";
 using namespace std;
 
 // PYBIND11_MAKE_OPAQUE(std::vector<cppjieba::string>);

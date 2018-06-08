@@ -99,7 +99,11 @@ setup(
     description='python bindings of cppjieba',
     long_description= open("README.md").read(),
     ext_modules=ext_modules,
-    packages=['cppjieba_py'],
+    packages=['cppjieba_py','cppjieba.dict'],
+    package_data = {
+        'cppjieba.dict': ['*.utf8']
+     },
+    include_package_data=True,
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
