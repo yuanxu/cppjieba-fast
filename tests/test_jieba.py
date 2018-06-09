@@ -1,6 +1,11 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from spec import Spec
-from pathlib import Path
+import sys
+if sys.version_info[0] >=3:
+    from pathlib import Path
+else:
+    from pathlib2 import Path
 
 DICT_DIR = Path("../cppjieba/dict")
 DICT = str(DICT_DIR / "jieba.dict.utf8")
