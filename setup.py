@@ -7,7 +7,7 @@ import os
 from distutils.sysconfig import get_python_lib
 site_package_dir = get_python_lib() + os.path.sep
 
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path

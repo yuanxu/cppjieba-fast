@@ -1,6 +1,6 @@
 
 import libcppjieba
-from libcppjieba import Tokenizer,add_word,tokenize,load_userdict
+from libcppjieba import Tokenizer,add_word,tokenize,load_userdict,find,lookup_tag
 from libcppjieba import lcut,lcut_for_search,initialize
 from libcppjieba import cut_all as _cut_all,lcut_all
 

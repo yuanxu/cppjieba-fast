@@ -13,8 +13,7 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 ### 区别  
 
 * 原jieba的`.cut`族接口基本都由python的`iter()`函数包裹list结果来实现。  
-* 原jieba的`.set_*`方法基本都由class传入初始化的参数来完成。  
-* `.add_word` 由于cppjieba没提供**freq**参数，实现上不一致。  
+* 原jieba的`.set_*`方法基本都由class传入初始化的参数来完成。   
 * `.del_word` 和`.suggest_freq` cppjieba没提供。  
 * `POSTokenizer.lcut` 在`Tokenizer.tag` 下， 唯一一个只提供了list返回类型的接口。
 
@@ -49,7 +48,7 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 # -*- coding: utf-8 -*-
 import cppjieba_py as jieba 
 # or use defualt Tokenizer: jieba.cut 
-jieba_instance = Tokenizer("cppjieba/dict/jieba.dict.utf8")
+jieba_instance = Tokenizer()
 seg_list = jieba_instance.cut("我来到北京清华大学",cut_all = True)
 print("Full Mode: " + "/ ".join(seg_list))  # 全模式
 
@@ -63,7 +62,11 @@ print(", ".join(seg_list))
     
 ```
 
-## 性能
+for more: [example.py](example.py) , [tests](tests)
+
+## 性能  
+
+[performace_test/cppjieba.py](performace_test/cppjieba.py)  
 
 测试[方案](https://yanyiwu.com/work/2015/06/14/jieba-series-performance-test.html)：先按行读取文本围城到一个数组里，然后循环对围城每行文字作为一个句子进行分词。因为只对围城这本书分词一遍太快了，容易误差。 所以循环对围城这本书分词50次。基本上每次分词耗时都很稳定。 分词算法都是采用【精确模式】。
 
@@ -72,3 +75,7 @@ print(", ".join(seg_list))
 | cppjieba-py      | 6.218346  |
 | jieba_fast      | 31.315147  |
 | jieba      | 1:24.703040    |
+
+## Test  
+
+`pip install ".[test]"`
