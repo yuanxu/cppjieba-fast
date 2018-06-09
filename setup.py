@@ -108,11 +108,13 @@ if sys.version_info[0] <3:
 
 classifiers = [
     'License :: OSI Approved :: MIT License',
-    'Natural Language :: Chinese',
+    'Natural Language :: Chinese (Simplified)',
+    'Natural Language :: Chinese (Traditional)',
     'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
+    'Programming Language :: C++',
     'Operating System :: Unix',
     'Topic :: Text Processing :: Linguistic',
     'Topic :: Software Development :: Libraries :: Python Modules'
