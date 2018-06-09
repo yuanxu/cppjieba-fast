@@ -104,7 +104,7 @@ extras_require = {
     }
 
 if sys.version_info[0] <3:
-    extras_require["test"].append("pathlib")
+    extras_require["test"].append("pathlib2")
 
 setup(
     name='cppjieba_py',
