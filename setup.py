@@ -106,6 +106,18 @@ extras_require = {
 if sys.version_info[0] <3:
     extras_require["test"].append("pathlib2")
 
+classifiers = [
+    'License :: OSI Approved :: MIT License',
+    'Natural Language :: Chinese',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
+    'Programming Language :: Python :: 3.6',
+    'Operating System :: Unix',
+    'Topic :: Text Processing :: Linguistic',
+    'Topic :: Software Development :: Libraries :: Python Modules'
+]
+
 setup(
     name='cppjieba_py',
     version=__version__,
@@ -113,6 +125,7 @@ setup(
     url='https://github.com/bung87/cppjieba-py/',
     description='python bindings of cppjieba',
     long_description= open("README.md").read(),
+    classifiers = classifiers,
     ext_modules=ext_modules,
     packages=['cppjieba_py','cppjieba.dict'],
     package_data = {
