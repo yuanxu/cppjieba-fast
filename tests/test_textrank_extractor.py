@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 # pylint: disable=E1101
 from spec import Spec
 from pathlib import Path

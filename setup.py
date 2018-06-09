@@ -99,8 +99,12 @@ class BuildExt(build_ext):
 
 install_requires = ['pybind11>=2.2']
 
+extras_require = {
+        'test': ['spec==1.4.1']
+    }
+
 if sys.version_info[0] <3:
-    install_requires.append("pathlib2")
+    extras_require["test"].append("pathlib")
 
 setup(
     name='cppjieba_py',
@@ -116,9 +120,7 @@ setup(
      },
     include_package_data=True,
     install_requires=install_requires,
-    extras_require={
-        'test': ['spec==1.4.1']
-    },
+    extras_require=extras_require,
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
 )

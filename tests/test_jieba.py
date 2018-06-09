@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from spec import Spec
 from pathlib import Path
 
