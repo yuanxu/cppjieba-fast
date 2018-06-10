@@ -91,7 +91,7 @@ struct Tokenizer
     WordVector cut_internal(const string &sentence, bool cut_all = false, bool HMM = true)
     {
         WordVector words;
-        if (cut_all)
+        if (!cut_all)
         {
             jieba->Cut(sentence, words, HMM);
         }
@@ -105,7 +105,7 @@ struct Tokenizer
     vector<string> lcut(const string &sentence, bool cut_all = false, bool HMM = true)
     {
         vector<string> words;
-        if (cut_all)
+        if (!cut_all)
         {
             jieba->Cut(sentence, words, HMM);
         }
