@@ -19,9 +19,9 @@ if __name__ == "__main__":
         import jieba_fast.posseg as pseg
 
     if len(sys.argv) == 3 and sys.argv[2] =="pseg":
-        method = pseg.cut
+        method = pseg.lcut
     else:
-        method = jieba.cut
+        method = jieba.lcut
     lines = []
     weicheng = os.path.join(os.path.dirname(__file__),"weicheng.utf8")
     for line in open(weicheng):

@@ -81,7 +81,7 @@ for more: [example.py](example.py) , [tests](tests)
 | 方案        | 速度             |
 | ------------- |:-------------:|
 | cppjieba-py      | 11.860994  |
-| jieba      | 0.048153    |
+| jieba      | 1:19.411649    |
 
 ## Test  
 
