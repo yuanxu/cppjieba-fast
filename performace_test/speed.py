@@ -27,12 +27,12 @@ if __name__ == "__main__":
     for line in open(weicheng):
         lines.append(line.strip())
     result = [""] * 10
-    result[random.randint(0, 9)] = '/'.join(str(method("南京长江大桥")))
+    result[random.randint(0, 9)] = '/'.join(str(method("南京长江大桥",HMM=False)))
     starttime = datetime.datetime.now()
     
     for i in range(50):
         for line in lines:
-            r = '/'.join(str(method(line)))
+            r = '/'.join(str(method(line,HMM=False)))
             # print(r)
             result[random.randint(0, 9)] = r
             #result[random.randint(0, 9)] = jieba.cut(line)
