@@ -91,8 +91,9 @@ for more: [example.py](example.py) , [tests](tests)
 | 方案        | 速度             |
 | ------------- |:-------------:|
 | cppjieba-py      | 20.382905  |
-| jieba      | 1:19.411649    |
+| jieba==0.39    | 1:19.411649    |
 
 ## Test  
 
-`pip install ".[test]"`
+`pip install ".[test]"`  
+`nosetests -c nose.cfg`
