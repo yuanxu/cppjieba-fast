@@ -76,6 +76,13 @@ for more: [example.py](example.py) , [tests](tests)
 | jieba_fast      | 31.315147  |
 | jieba      | 1:24.703040    |
 
+`posseg.cut`  
+
+| 方案        | 速度             |
+| ------------- |:-------------:|
+| cppjieba-py      | 11.860994  |
+| jieba      | 0.048153    |
+
 ## Test  
 
 `pip install ".[test]"`
