@@ -18,21 +18,24 @@ if __name__ == "__main__":
         import jieba_fast as jieba
         import jieba_fast.posseg as pseg
 
-    if len(sys.argv) == 3 and sys.argv[2] =="pseg":
+    if len(sys.argv) == 4 and sys.argv[3] =="pseg":
         method = pseg.lcut
     else:
         method = jieba.lcut
+    HMM = False
+    if len(sys.argv) >= 3 and sys.argv[2] =="hmm":
+        HMM = True
     lines = []
     weicheng = os.path.join(os.path.dirname(__file__),"weicheng.utf8")
     for line in open(weicheng):
         lines.append(line.strip())
     result = [""] * 10
-    result[random.randint(0, 9)] = '/'.join(str(method("南京长江大桥",HMM=False)))
+    result[random.randint(0, 9)] = '/'.join(str(method("南京长江大桥",HMM=HMM)))
     starttime = datetime.datetime.now()
     
     for i in range(50):
         for line in lines:
-            r = '/'.join(str(method(line,HMM=False)))
+            r = '/'.join(str(method(line,HMM=HMM)))
             # print(r)
             result[random.randint(0, 9)] = r
             #result[random.randint(0, 9)] = jieba.cut(line)

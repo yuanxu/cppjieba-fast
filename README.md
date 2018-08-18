@@ -70,17 +70,25 @@ for more: [example.py](example.py) , [tests](tests)
 
 测试[方案](https://yanyiwu.com/work/2015/06/14/jieba-series-performance-test.html)：先按行读取文本围城到一个数组里，然后循环对围城每行文字作为一个句子进行分词。因为只对围城这本书分词一遍太快了，容易误差。 所以循环对围城这本书分词50次。基本上每次分词耗时都很稳定。 分词算法都是采用【精确模式】。
 
+`lcut HMM=False`
 | 方案        | 速度             |
 | ------------- |:-------------:|
-| cppjieba-py      | 9.312873  |
-| jieba_fast      | 31.315147  |
-| jieba      | 1:24.703040    |
+| cppjieba-py      | 10.642102  |
+| jieba-fast==0.51      | 26.129298  |
+| jieba==0.39      | 50.623866    |
 
-`posseg.cut`  
+`lcut HMM=True`
+| 方案        | 速度             |
+| ------------- |:-------------:|
+| cppjieba-py      | 13.139232  |
+| jieba-fast==0.51      | 34.574907  |
+| jieba==0.39      | 1:26.756226    |
+
+`posseg.lcut`  
 
 | 方案        | 速度             |
 | ------------- |:-------------:|
-| cppjieba-py      | 11.860994  |
+| cppjieba-py      | 20.382905  |
 | jieba      | 1:19.411649    |
 
 ## Test  
