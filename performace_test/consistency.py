@@ -8,18 +8,21 @@ from distutils.sysconfig import get_python_lib
 site_package_dir = get_python_lib()
 jieba_dict = os.path.join(site_package_dir,"jieba","dict.txt")
 tokenizer = cppjieba_py.Tokenizer(jieba_dict)
+HMM = False
+if "HMM" in os.environ:
+    HMM = True
 
 def cuttest(test_sent):
-    result = jieba.lcut(test_sent)
+    result = jieba.lcut(test_sent,HMM=HMM)
     # result2 = cppjieba_py.lcut(test_sent)
-    result2 = tokenizer.lcut(test_sent)
+    result2 = tokenizer.lcut(test_sent,HMM=HMM)
     print(result)
     print(result2)
     assert result == result2
 
 
 if __name__ == "__main__":
-    cuttest("这是一个伸手不见五指的黑夜。我叫孙悟空，我爱北京，我爱Python和C++。")
+    # cuttest("这是一个伸手不见五指的黑夜。我叫孙悟空，我爱北京，我爱Python和C++。")
     cuttest("我不喜欢日本和服。")
     cuttest("雷猴回归人间。")
     cuttest("工信处女干事每月经过下属科室都要亲口交代24口交换机等技术性器件的安装工作")
@@ -100,7 +103,7 @@ if __name__ == "__main__":
     cuttest('两块五一套，三块八一斤，四块七一本，五块六一条')
     cuttest('小和尚留了一个像大和尚一样的和尚头')
     cuttest('我是中华人民共和国公民;我爸爸是共和党党员; 地铁和平门站')
-    cuttest('张晓梅去人民医院做了个B超然后去买了件T恤')
+    # cuttest('张晓梅去人民医院做了个B超然后去买了件T恤')
     # cuttest('AT&T是一件不错的公司，给你发offer了吗？')
     # '了', '吗' / '了吗'
     # cuttest('C++和c#是什么关系？11+122=133，是吗？PI=3.14159')
