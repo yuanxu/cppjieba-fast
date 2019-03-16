@@ -3,11 +3,12 @@ from setuptools.command.build_ext import build_ext
 import sys
 import setuptools
 import os
+import io
 
 from distutils.sysconfig import get_python_lib
 site_package_dir = get_python_lib() + os.path.sep
 
-__version__ = '0.0.10'
+__version__ = '0.0.11'
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -126,7 +127,7 @@ setup(
     author='bung87,yeping zheng',
     url='https://github.com/bung87/cppjieba-py/',
     description='python bindings of cppjieba',
-    long_description= open("README.md",encoding="utf8").read(),
+    long_description= io.open("README.md",'r', encoding="utf-8").read(),
     classifiers = classifiers,
     ext_modules=ext_modules,
     packages=['cppjieba_py','cppjieba.dict'],
