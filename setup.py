@@ -126,7 +126,7 @@ setup(
     author='bung87,yeping zheng',
     url='https://github.com/bung87/cppjieba-py/',
     description='python bindings of cppjieba',
-    long_description= open("README.md").read(),
+    long_description= open("README.md",encoding="utf8").read(),
     classifiers = classifiers,
     ext_modules=ext_modules,
     packages=['cppjieba_py','cppjieba.dict'],
