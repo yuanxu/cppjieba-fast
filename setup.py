@@ -103,7 +103,7 @@ class BuildExt(build_ext):
             ext.extra_compile_args = opts
         build_ext.build_extensions(self)
 
-install_requires = ['pybind11>=2.2.0']
+install_requires = ['pybind11>=2.2.0',"setuptools >= 0.7.0"]
 
 extras_require = {
         'test': ['spec==1.4.1']
