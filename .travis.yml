@@ -5,6 +5,8 @@ python:
 - '3.5'
 - '3.6'
 sudo: false
+git:
+  submodules: false
 before_install:
 - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 - sudo apt-get -y update
