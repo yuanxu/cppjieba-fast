@@ -8,7 +8,7 @@ import io
 from distutils.sysconfig import get_python_lib
 site_package_dir = get_python_lib() + os.path.sep
 
-__version__ = '0.0.11'
+__version__ = '0.0.12'
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -128,6 +128,7 @@ setup(
     url='https://github.com/bung87/cppjieba-py/',
     description='python bindings of cppjieba',
     long_description= io.open("README.md",'r', encoding="utf-8").read(),
+    long_description_content_type='text/markdown',
     classifiers = classifiers,
     ext_modules=ext_modules,
     packages=['cppjieba_py','cppjieba.dict'],

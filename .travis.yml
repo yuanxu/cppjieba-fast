@@ -16,3 +16,10 @@ install:
 - pip install ".[test]"
 script:
 - nosetests -c nose.cfg
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: __token__
+  password:
+    secure: fzIztIC2P0xWqEUHSYelFcnbC7aRV6OCgTtLExafvWRLl6W555X3iHUXI6KsVN7YNZOedXl0TqhFrlbCXky/Ub9ReoV6/htd3xsubQUXWWALwA3bynAH46AQIe21UH6dhC62LNMbjHVnrEAC4w9GVlsigqIYESavcXCypWwk+bziiYpTFpkTxnSAFeelL2PzOEzvjlMvIu7lN15+ODuk/HmAPKO2FTTqsr2B8xkYQpC09vK482hSVblFJqokSPQmxhRMgZ+Q03zNQNnsvgZY2J8KYqsRSH/A1JRwxNorefsM5yTfY1sORgDD1MpwcxPhF5FGLJTzNJ6jXBW5l/uUUjLXaEa4ohNA9xWoQ+QKwGkCjPA4N3F9zaBTyS7vK07pBxPXN2RyBfmUS4DkpbEyGj/29lq8Ixe3q5LneAItlzhLzhSxtcQmqTA1dyutetbn9kxg/u6J7TYCw4UlCCoOKKKBln9kifoa7cNwJoPHfXqnY1roqppSmvgIwHJf8wdtJlfGYSW6jNEUKQPgn41kEK6shO5ue3Sxe+qk0kM0d7DUpa4ZI+6vGIx6A187Xj2x5NlLii6zunJweEK/ifxOOgdwTtVl/kgPr89Nzely1Qipx15D4p2q4r1A7Mk//LXx3gWDcVGjQA0pB49q+kASonaD0eSD184Im+I94YhlQSI=
+  skip_existing: true
