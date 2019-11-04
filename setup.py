@@ -17,6 +17,11 @@ class get_pybind_include(object):
     method can be invoked. """
 
     def __init__(self, user=False):
+        try:
+            import pybind11
+        except ImportError:
+            if subprocess.call([sys.executable, '-m', 'pip', 'install', 'pybind11']):
+                raise RuntimeError('pybind11 install failed.')
         self.user = user
 
     def __str__(self):
@@ -98,7 +103,7 @@ class BuildExt(build_ext):
             ext.extra_compile_args = opts
         build_ext.build_extensions(self)
 
-install_requires = ['pybind11==2.3.0']
+install_requires = ['pybind11>=2.2.0']
 
 extras_require = {
         'test': ['spec==1.4.1']
