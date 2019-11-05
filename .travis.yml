@@ -14,7 +14,7 @@ before_install:
 - sudo apt-get -y install g++-5
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 1
 - g++ --version
-- git submodule update --init cppjieba
+- git submodule update --init cppjieba_py/cppjieba
 install:
 - pip install ".[test]"
 script:

@@ -36,7 +36,9 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 
 	```
 	$ git clone --recursive https://github.com/bung87/cppjieba-py
-	$ python setup.py install 
+	$ pip install . # or 
+	$ python setup.py install --old-and-unmanageable 
+	without argument will install under egg dir,which cause libcppjieba found wrong default dictionaries directory
 	```
 
 

@@ -1,7 +1,10 @@
-[submodule "pybind11"]
-	path = pybind11
-	active = false
-	url = https://github.com/pybind/pybind11.git
-[submodule "cppjieba"]
-	path = cppjieba
-	url = https://github.com/bung87/cppjieba.git
+# [submodule "pybind11"]
+# 	path = pybind11
+# 	active = false
+# 	url = https://github.com/pybind/pybind11.git
+# [submodule "cppjieba"]
+# 	path = cppjieba
+# 	url = https://github.com/yanyiwu/cppjieba.git
+[submodule "cppjieba_py/cppjieba"]
+	path = cppjieba_py/cppjieba
+	url = https://github.com/yanyiwu/cppjieba.git

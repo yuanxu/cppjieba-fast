@@ -4,11 +4,12 @@ import sys
 import setuptools
 import os
 import io
-
+import subprocess
+from os import path
 from distutils.sysconfig import get_python_lib
-site_package_dir = get_python_lib() + os.path.sep
+site_package_dir = get_python_lib() + path.sep
 
-__version__ = '0.0.12'
+__version__ = '0.0.13'
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -31,13 +32,16 @@ class get_pybind_include(object):
 ext_modules = [
     Extension(
         'libcppjieba',
-        ['src/main.cpp'],
+        # ['src/main.cpp'],
+        ["cppjieba_py/src/main.cpp"],
         include_dirs=[
             # Path to pybind11 headers
             get_pybind_include(),
             get_pybind_include(user=True),
-            "cppjieba/include",
-            "cppjieba/deps"
+            # path.join(site_package_dir,"cppjieba",'include'),
+            # path.join(site_package_dir,"cppjieba",'deps')
+            "cppjieba_py/cppjieba/include",
+            "cppjieba_py/cppjieba/deps"
         ],
         language='c++'
     ),
@@ -94,11 +98,10 @@ class BuildExt(build_ext):
             opts.append(cpp_flag(self.compiler))
             if has_flag(self.compiler, '-fvisibility=hidden'):
                 opts.append('-fvisibility=hidden')
-        elif ct == 'msvc':
+        if ct == 'msvc':
             opts.append('/DVERSION_INFO=\\"%s\\"' %
                         self.distribution.get_version())
-            opts.append('/DSITE_PACKAGE_PATH=\\"%s\\"' %
-                        site_package_dir)
+            opts.append('/DSITE_PACKAGE_PATH=\\"%s\\"' %   site_package_dir)
         for ext in self.extensions:
             ext.extra_compile_args = opts
         build_ext.build_extensions(self)
@@ -106,7 +109,7 @@ class BuildExt(build_ext):
 install_requires = ['pybind11>=2.2.0',"setuptools >= 0.7.0"]
 
 extras_require = {
-        'test': ['spec==1.4.1']
+        'test': ['spec>=1.4.1','nose>=1.3.7']
     }
 
 if sys.version_info[0] <3:
@@ -136,10 +139,7 @@ setup(
     long_description_content_type='text/markdown',
     classifiers = classifiers,
     ext_modules=ext_modules,
-    packages=['cppjieba_py','cppjieba.dict'],
-    package_data = {
-        'cppjieba.dict': ['*.utf8']
-     },
+    packages=['cppjieba_py'],
     include_package_data=True,
     install_requires=install_requires,
     extras_require=extras_require,
