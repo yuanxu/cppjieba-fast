@@ -11,10 +11,10 @@
 using namespace std;
 namespace py = pybind11;
 
-const string DICT_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba_py/cppjieba/dict/jieba.dict.utf8");
-const string HMM_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba_py/cppjieba/dict/hmm_model.utf8");
-const string IDF_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba_py/cppjieba/dict/idf.utf8");
-const string STOP_WORD_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba_py/cppjieba/dict/stop_words.utf8");
+const string DICT_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba/libcppjieba/dict/jieba.dict.utf8");
+const string HMM_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba/libcppjieba/dict/hmm_model.utf8");
+const string IDF_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba/libcppjieba/dict/idf.utf8");
+const string STOP_WORD_PATH = string(SITE_PACKAGE_PATH) + string("cppjieba/libcppjieba/dict/stop_words.utf8");
 
 using Word = cppjieba::Word;
 

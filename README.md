@@ -1,13 +1,13 @@
-# cppjieba-py   
+# cppjieba-fast 
 
-[![Build Status](https://travis-ci.org/bung87/cppjieba-py.svg?branch=master)](https://travis-ci.org/bung87/cppjieba-py) [![PyPI](https://img.shields.io/pypi/v/cppjieba-py.svg)](https://pypi.python.org/pypi/cppjieba-py)
+[![Build Status](https://travis-ci.org/yuanxu/cppjieba-fast.svg?branch=master)](https://travis-ci.org/yuanxu/cppjieba-fast) [![PyPI](https://img.shields.io/pypi/v/cppjieba-py.svg)](https://pypi.python.org/pypi/cppjieba-fast)
 
-cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装。 
+cppjieba-fast 是 [cppjieba](https://github.com/byronhe/cppjieba)的 Python 封装。 
 
 由于只是对cppjieba的接口进行的封装，所以执行效率上非常接近于原cppjieba。  
 
 项目主要分为两个部分**libcppjieba** 为 cppjieba 的 python extension，  
-**cppjieba_py** 为使开发者平滑过渡到使用cppjieba-py而作的 python package。 
+**cppjieba** 为使开发者平滑过渡到使用cppjieba-py而作的 python package。 
 具体见[example.py](example.py)。  
 
 ### 区别  
@@ -21,21 +21,21 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 
 * pypi  
 
-	```pip install cppjieba-py```  
+	```pip install cppjieba-fast```  
 	
 	或者你设置的安装源并未收录本项目  
 
-	```pip install -i https://pypi.org/simple/ cppjieba-py```  
+	```pip install -i https://pypi.org/simple/ cppjieba-fast```  
 
 * 从发行包安装  
-	see [releases](https://github.com/bung87/cppjieba-py/releases)  
+	see [releases](https://github.com/yuanxu/cppjieba-fast/releases)  
 
-	```pip install https://github.com/bung87/cppjieba-py/files/<xxxxxxx>/cppjieba_py-<x.x.x>.tar.gz```  
+	```pip install https://github.com/yuanxu/cppjieba-fast/files/<xxxxxxx>/cppjieba_fast-<x.x.x>.tar.gz```  
 
 * 从源代码安装
 
 	```
-	$ git clone --recursive https://github.com/bung87/cppjieba-py
+	$ git clone --recursive https://github.com/yuanxu/cppjieba-fast
 	$ pip install . # or 
 	$ python setup.py install --old-and-unmanageable 
 	without argument will install under egg dir,which cause libcppjieba found wrong default dictionaries directory
@@ -44,11 +44,11 @@ cppjieba-py 是 [cppjieba](https://github.com/yanyiwu/cppjieba)的 Python 封装
 
 ## 使用
 
-下面是一个使用 cppjieba-py 进行分词的例子
+下面是一个使用 cppjieba-fast 进行分词的例子
 
 ```python
 # -*- coding: utf-8 -*-
-import cppjieba_py as jieba 
+import cppjieba as jieba 
 # or use defualt Tokenizer: jieba.cut 
 jieba_instance = Tokenizer()
 seg_list = jieba_instance.cut("我来到北京清华大学",cut_all = True)
@@ -76,24 +76,18 @@ for more: [example.py](example.py) , [tests](tests)
 
 | 方案        | 速度             |
 | ------------- |:-------------:|
-| cppjieba-py      | 10.642102  |
-| jieba-fast==0.51      | 26.129298  |
-| jieba==0.39      | 50.623866    |
+| cppjieba-fast      | 04.295032  |
+| jieba-fast==0.51      | 12.489572 |
+| jieba==0.42.1      | 25.986478    |
 
 `lcut HMM=True`  
 
 | 方案        | 速度             |
 | ------------- |:-------------:|
-| cppjieba-py      | 13.139232  |
-| jieba-fast==0.51      | 34.574907  |
-| jieba==0.39      | 1:26.756226    |
+| cppjieba-fast      | 05.096059  |
+| jieba-fast==0.51      | 16.798939  |
+| jieba==0.42.1      | 38.912397   |
 
-`posseg.lcut`   
-
-| 方案        | 速度             |
-| ------------- |:-------------:|
-| cppjieba-py      | 20.382905  |
-| jieba==0.39    | 1:19.411649    |
 
 ## Test  
 

@@ -5,6 +5,6 @@
 # [submodule "cppjieba"]
 # 	path = cppjieba
 # 	url = https://github.com/yanyiwu/cppjieba.git
-[submodule "cppjieba_py/cppjieba"]
-	path = cppjieba_py/cppjieba
-	url = https://github.com/yanyiwu/cppjieba.git
+[submodule "cppjieba/libcppjieba"]
+	path = cppjieba/libcppjieba
+	url = https://github.com/byronhe/cppjieba.git

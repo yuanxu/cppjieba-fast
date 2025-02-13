@@ -8,13 +8,13 @@ if sys.version_info[0] >=3:
 else:
     from pathlib2 import Path
 
-DICT_DIR = Path("../cppjieba_py/cppjieba/dict")
+DICT_DIR = Path("../cppjieba/libcppjieba/dict")
 DICT = str(DICT_DIR / "jieba.dict.utf8")
 IDF = str(DICT_DIR / "idf.utf8")
 STOP_WORD = str(DICT_DIR / "stop_words.utf8")
 
-from cppjieba_py import Tokenizer
-from cppjieba_py.analyse import KeywordExtractor
+from cppjieba import Tokenizer
+from cppjieba.analyse import KeywordExtractor
 
 
 class KeywordExtractorrTest(Spec):

@@ -1,8 +1,8 @@
-from cppjieba_py import Tokenizer, cut, tokenize, cut_for_search, lcut, lcut_for_search, initialize, load_userdict
-import cppjieba_py.posseg as pseg
+from cppjieba import Tokenizer, cut, tokenize, cut_for_search, lcut, lcut_for_search, initialize, load_userdict
+import cppjieba.posseg as pseg
 import datetime
-from cppjieba_py import analyse
-from cppjieba_py.analyse import TextRank,TFIDF
+from cppjieba import analyse
+from cppjieba.analyse import TextRank,TFIDF
 
 def main():
 

@@ -1,6 +1,6 @@
 include README.md
 include setup.py
-recursive-include cppjieba_py/src *.cpp
-recursive-include cppjieba_py/cppjieba/include/cppjieba *.hpp
-recursive-include cppjieba_py/cppjieba/dict *.utf8
-recursive-include cppjieba_py/cppjieba/deps  *.hpp
+recursive-include cppjieba/src *.cpp
+recursive-include cppjieba/libcppjieba/include/cppjieba *.hpp
+recursive-include cppjieba/libcppjieba/dict *.utf8
+recursive-include cppjieba/libcppjieba/deps  *.hpp

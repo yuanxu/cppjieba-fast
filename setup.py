@@ -9,7 +9,7 @@ from os import path
 from distutils.sysconfig import get_python_lib
 site_package_dir = get_python_lib() + path.sep
 
-__version__ = '0.0.13'
+__version__ = '0.0.14'
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -33,15 +33,15 @@ ext_modules = [
     Extension(
         'libcppjieba',
         # ['src/main.cpp'],
-        ["cppjieba_py/src/main.cpp"],
+        ["cppjieba/src/main.cpp"],
         include_dirs=[
             # Path to pybind11 headers
             get_pybind_include(),
             get_pybind_include(user=True),
             # path.join(site_package_dir,"cppjieba",'include'),
             # path.join(site_package_dir,"cppjieba",'deps')
-            "cppjieba_py/cppjieba/include",
-            "cppjieba_py/cppjieba/deps"
+            "cppjieba/libcppjieba/include",
+            "cppjieba/libcppjieba/deps"
         ],
         language='c++'
     ),
@@ -130,16 +130,16 @@ classifiers = [
 ]
 
 setup(
-    name='cppjieba_py',
+    name='cppjieba_fast',
     version=__version__,
-    author='bung87,yeping zheng',
-    url='https://github.com/bung87/cppjieba-py/',
+    author='xuyuan, bung87,yanyiwu,yeping zheng',
+    url='https://github.com/yuanxu/cppjieba-py/',
     description='python bindings of cppjieba',
     long_description= io.open("README.md",'r', encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     classifiers = classifiers,
     ext_modules=ext_modules,
-    packages=['cppjieba_py'],
+    packages=['cppjieba'],
     include_package_data=True,
     install_requires=install_requires,
     extras_require=extras_require,

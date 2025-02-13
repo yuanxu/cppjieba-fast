@@ -8,9 +8,9 @@ import datetime
 
 if __name__ == "__main__":
 
-    if sys.argv[1] == "cppjieba_py":# 0:00:03.861202
-        import cppjieba_py as jieba
-        import cppjieba_py.posseg as pseg # 0:00:11.860994
+    if sys.argv[1] == "cppjieba_mini":# 0:00:03.861202
+        import cppjieba as jieba
+        import cppjieba.posseg as pseg # 0:00:11.860994
     elif sys.argv[1] == "jieba": # 0:01:24.703040
         import jieba
         import jieba.posseg as pseg  # 0:00:00.048153
