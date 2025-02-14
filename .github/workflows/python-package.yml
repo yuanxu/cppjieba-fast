@@ -25,6 +25,7 @@ jobs:
       with:
         submodules: 'recursive'
         python-version: ${{ matrix.python-version }}
+    - uses: actions/setup-python@v5
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -40,11 +41,12 @@ jobs:
     #  run: |
     #    pytest
     # Used to host cibuildwheel
-    - uses: actions/setup-python@v5
-
     - name: Install cibuildwheel
       run: python -m pip install cibuildwheel==2.22.0
-      
+    - name: Set environment variables
+      run: |
+        export CPLUS_INCLUDE_PATH=$GITHUB_WORKSPACE/cppjieba/libcppjieba/include:$CPLUS_INCLUDE_PATH
+        export LIBRARY_PATH=$GITHUB_WORKSPACEcppjieba/libcppjieba/submodule/lib:$LIBRARY_PATH
     - name: Build wheel
       run: |
           python -m cibuildwheel --output-dir dist
