@@ -39,7 +39,7 @@ ext_modules = [
             get_pybind_include(),
             get_pybind_include(user=True),
             path.join(site_package_dir,"libcppjieba",'include'),
-            path.join(site_package_dir,"libcppjieba",'deps')
+            path.join(site_package_dir,"libcppjieba",'deps'),
             "cppjieba/libcppjieba/include",
             "cppjieba/libcppjieba/deps"
         ],
