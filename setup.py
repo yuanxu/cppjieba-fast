@@ -145,6 +145,7 @@ setup(
     include_package_data=True,
     install_requires=install_requires,
     extras_require=extras_require,
+    setup_requires=['pybind11'],
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
 )
