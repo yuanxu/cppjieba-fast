@@ -38,8 +38,10 @@ ext_modules = [
             # Path to pybind11 headers
             get_pybind_include(),
             get_pybind_include(user=True),
-            path.join(site_package_dir,"libcppjieba",'include'),
-            path.join(site_package_dir,"libcppjieba",'deps'),
+            #path.join(site_package_dir,"libcppjieba",'include'),
+            #path.join(site_package_dir,"libcppjieba",'deps'),
+            "libcppjieba/include",
+            "libcppjieba/deps",
             "cppjieba/libcppjieba/include",
             "cppjieba/libcppjieba/deps"
         ],
