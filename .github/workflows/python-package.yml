@@ -12,7 +12,7 @@ on:
 jobs:
   build_wheels:
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest #${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
